@@ -13,11 +13,7 @@ class Tree extends AbstractLocationObject implements LocationObjectInterface
 
     public function canBeUsedByEntity(Entity $entity)
     {
-        return $entity instanceof Dog;
+        return true;
     }
 
-    public function getUsageForDog()
-    {
-
-    }
 }
