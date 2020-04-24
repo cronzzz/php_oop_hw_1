@@ -6,6 +6,8 @@ require_once BASE_CLASS_PATH . DS . 'TransferManager.php';
 
 class Application
 {
+    const SLEEP_TIME = 1;
+
     private static $instance = null;
     private $singletons = null;
 
@@ -56,6 +58,11 @@ class Application
         return $this->logger;
     }
 
+    private function wait()
+    {
+        sleep(self::SLEEP_TIME);
+    }
+
     private function initialize($configuration)
     {
         $this->biomes = $configuration['biomes'];
@@ -69,22 +76,31 @@ class Application
 
     private function runScenario()
     {
+        $this->wait();
         $this->human->sayHello();
+        $this->wait();
         $this->dog->sayHello();
+        $this->wait();
 
         while (!$lead = $this->human->lookupLead()) {
+            $this->wait();
             foreach ($this->human->getLocation()->getBiome()->getLocations() as $location) {
                 if ($location == $this->human->getLocation()) {
                     continue;
                 }
                 $this->get(TransferManager::class)->transferEntityToLocation($this->human, $location);
+                $this->wait();
             }
         }
 
         $this->human->pickUpLead($lead);
+        $this->wait();
         if (!$this->human->attachLeadTo($this->dog)) {
+            $this->wait();
             $this->human->call($this->dog);
+            $this->wait();
             $this->human->attachLeadTo($this->dog);
+            $this->wait();
         }
 
         /**
@@ -92,10 +108,14 @@ class Application
          */
         while ($currentLocation = $this->routeManager->getNextLocation()) {
             $this->get(TransferManager::class)->transferEntityToLocation($this->human, $currentLocation);
+            $this->wait();
             $this->get(TransferManager::class)->transferEntityToLocation($this->dog, $currentLocation);
+            $this->wait();
             foreach ($currentLocation->getObjects() as $object) {
                 $this->human->interactWithObject($object);
+                $this->wait();
                 $this->dog->interactWithObject($object);
+                $this->wait();
             }
         }
     }

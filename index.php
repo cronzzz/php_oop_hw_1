@@ -35,7 +35,7 @@ $biomeApartments->addLocation($locationApartmentsHall);
 
 $biomeOutside = new Biome('outside');
 
-$locationApartmentsOutside = new Location('house');
+$locationApartmentsOutside = new Location('porch');
 $locationApartmentsOutside->addObject($itemNeighbourDoor1);
 $locationApartmentsOutside->addObject($itemNeighbourDoor2);
 $biomeOutside->addLocation($locationApartmentsOutside);
