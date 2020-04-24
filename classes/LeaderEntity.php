@@ -45,7 +45,7 @@ abstract class LeaderEntity extends Entity
             Application::getInstance()->getLogger()->info($this->getBindingMessage($entity));
             $lead = $this->getLead();
             $leader = $this;
-            $this->getLead()->useObject(function() use ($lead, $leader, $entity) {
+            Application::getInstance()->get(InteractionManager::class)->execute(function() use ($lead, $leader, $entity) {
                 $lead->setLeader($leader);
                 $entity->setLead($lead);
                 $lead->setDriven($entity);

@@ -48,7 +48,7 @@ abstract class Entity
     }
 
     abstract public function getName();
-    abstract public function canChangeBioms();
+    abstract public function canChangeBiomes();
     abstract public function getNoAccessErrorMessage();
     public function addHabit(string $objectCode, Closure $callback)
     {
@@ -62,6 +62,6 @@ abstract class Entity
 
     public function interactWithObject(LocationObjectInterface $object)
     {
-        $object->useObject($this->getHabit($object->getCode()));
+
     }
 }

@@ -26,10 +26,4 @@ abstract class AbstractLocationObject implements LocationObjectInterface
     {
         $this->location = $location;
     }
-
-    public function useObject(Closure $callback = null)
-    {
-        $callback();
-    }
-
 }

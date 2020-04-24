@@ -29,7 +29,7 @@ class Dog extends BoundedEntity
         return $this->nicknames[array_rand($this->nicknames)];
     }
 
-    public function canChangeBioms()
+    public function canChangeBiomes()
     {
         return false;
     }

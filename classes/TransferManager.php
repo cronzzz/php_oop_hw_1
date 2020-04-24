@@ -11,7 +11,7 @@ class TransferManager
     public function transferEntityToLocation(Entity $entity, Location $newLocation)
     {
         if (
-            (($entity->getLocation()->getBiome() != $newLocation->getBiome()) && !$entity->canChangeBioms()) &&
+            (($entity->getLocation()->getBiome() != $newLocation->getBiome()) && !$entity->canChangeBiomes()) &&
             (($entity instanceof BoundedEntity) && ($entity->isBounded()) && !$entity->isFollowingTo($newLocation))
         ) {
             Application::getInstance()->getLogger()->info($entity->getNoAccessErrorMessage());

@@ -3,10 +3,11 @@
 require_once BASE_CLASS_PATH . DS . 'Logger.php';
 require_once BASE_CLASS_PATH . DS . 'RouteManager.php';
 require_once BASE_CLASS_PATH . DS . 'TransferManager.php';
+require_once BASE_CLASS_PATH . DS . 'InteractionManager.php';
 
 class Application
 {
-    const SLEEP_TIME = 1;
+    const SLEEP_TIME = 0;
 
     private static $instance = null;
     private $singletons = null;
@@ -111,10 +112,13 @@ class Application
             $this->wait();
             $this->get(TransferManager::class)->transferEntityToLocation($this->dog, $currentLocation);
             $this->wait();
+            /**
+             * @var $object LocationObjectInterface
+             */
             foreach ($currentLocation->getObjects() as $object) {
-                $this->human->interactWithObject($object);
+                $this->get(InteractionManager::class)->execute($this->human->getHabit($object->getCode()));
                 $this->wait();
-                $this->dog->interactWithObject($object);
+                $this->get(InteractionManager::class)->execute($this->dog->getHabit($object->getCode()));
                 $this->wait();
             }
         }

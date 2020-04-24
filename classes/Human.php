@@ -17,7 +17,7 @@ class Human extends LeaderEntity
         return $this->name;
     }
 
-    public function canChangeBioms()
+    public function canChangeBiomes()
     {
         return true;
     }
